@@ -48,7 +48,7 @@ class publish_dotnet(Command):
         if self.dotnet_config is None:
             self.dotnet_config = "release"
         if self.runtime is None:
-            self.runtime = "win-x64"
+            self.runtime = runtime()
 
         build = self.distribution.get_command_obj("build")
         build.ensure_finalized()
