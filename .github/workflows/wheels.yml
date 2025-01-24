@@ -5,9 +5,11 @@ on:
 
 jobs:
   build-test:
-    name: Build and Test
+    name: Build and Publish
     runs-on: ${{ matrix.os.instance }}
     timeout-minutes: 15
+    permissions:
+      id-token: write    
 
     strategy:
       fail-fast: false
@@ -59,4 +61,7 @@ jobs:
       - name: Build
         run: |
           uv build --wheel
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1        
 
