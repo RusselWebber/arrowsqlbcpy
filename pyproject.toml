@@ -1,0 +1,31 @@
+[project]
+name = "arrowsqlbcpy"
+license = {text = "MIT"}
+description = "Add your description here"
+readme = "README.md"
+keywords = ["bcp", "sql", "pandas"]
+authors = [
+    { name = "Russel Webber", email = "24542073+RusselWebber@users.noreply.github.com" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "pandas>=2.2.3",
+    "pyarrow>=19.0.0",
+]
+dynamic = ["version"]
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+zip-safe = false
+license-files = []
+
+[tool.setuptools.dynamic.version]
+file = "version.txt"
+
+[dependency-groups]
+dev = [
+    "wheel>=0.45.1",
+]
