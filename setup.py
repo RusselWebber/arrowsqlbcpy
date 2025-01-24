@@ -106,7 +106,6 @@ class publish_dotnet(Command):
 class build(_build):
     sub_commands = _build.sub_commands + [("publish_dotnet", None)]
 
-
 class develop(_develop):
     def install_for_development(self):
         # Build extensions in-place
@@ -136,7 +135,7 @@ cmdclass = {
 
 # Determine host architecture and thus .Net runtime to target
 def runtime():
-    is_32bit = sys.maxsize == 2**61-1
+    is_32bit = sys.maxsize == 2**31-1
     is_win = platform.system() == "Windows"
     is_mac = platform.system() == "Darwin"
     if is_win:

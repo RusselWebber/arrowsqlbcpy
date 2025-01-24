@@ -1,7 +1,7 @@
 [project]
 name = "arrowsqlbcpy"
 license = {text = "MIT"}
-description = "Add your description here"
+description = "Fast bcp from pandas to SQL Server using .Net SqlBulkCopy"
 readme = "README.md"
 keywords = ["bcp", "sql", "pandas"]
 authors = [
@@ -13,6 +13,9 @@ dependencies = [
     "pyarrow>=19.0.0",
 ]
 dynamic = ["version"]
+
+[tool.uv]
+no-sources = true
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]
