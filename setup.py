@@ -2,6 +2,8 @@
 # Haevily based on the pythonnet project's setup.py that does the same for dotnet builds
 
 import distutils
+import sys
+import platform
 from distutils.command.build import build as _build
 from setuptools.command.develop import develop as _develop
 from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
@@ -132,12 +134,28 @@ cmdclass = {
     "bdist_wheel": bdist_wheel,
 }
 
+# Determine host architecture and thus .Net runtime to target
+def runtime():
+    is_32bit = sys.maxsize == 2**61-1
+    is_win = platform.system() == "Windows"
+    is_mac = platform.system() == "Darwin"
+    if is_win:
+        if is_32bit:
+            return "win-x86"
+        else:
+            return "win-x64"
+    elif is_mac:
+        return "osx-x64"
+    else:
+        return "linux-x64"
+
+
 dotnet_libs = [
     DotnetLib(
         "arrowsqlbcpy",
         "src/lib/ArrowSqlBulkCopyNet.csproj",
         output="arrowsqlbcpy/lib",
-        runtime="win-x64",
+        runtime=runtime(),
     )
 ]
 
