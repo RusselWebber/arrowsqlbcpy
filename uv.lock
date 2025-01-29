@@ -9,6 +9,7 @@ resolution-markers = [
 
 [[package]]
 name = "arrowsqlbcpy"
+version = "0.0.1.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "pandas" },
