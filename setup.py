@@ -117,10 +117,10 @@ class develop(_develop):
 
 class bdist_wheel(_bdist_wheel):
     def finalize_options(self):
-        # Monkey patch bdist_wheel to think the package is pure as we
+        # Monkey patch bdist_wheel to think the package is not pure as we
         # include DLLs
         super().finalize_options()
-        self.root_is_pure = True
+        self.root_is_pure = False
 
 
 # Monkey-patch Distribution s.t. it supports the dotnet_libs attribute
