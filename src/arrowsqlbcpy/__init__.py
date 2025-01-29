@@ -1,20 +1,32 @@
 import os
+import platform
 import pyarrow as pa
 import pandas as pd
-from ctypes import windll, c_int, c_wchar_p, create_unicode_buffer, c_char_p
+import ctypes
+from ctypes import c_int, c_wchar_p, create_unicode_buffer, c_char_p
+
+is_win = platform.system() == "Windows"
 
 libpath = os.path.join(os.path.dirname(__file__), "lib")
-libname = "ArrowSqlBulkCopyNet.dll"
-sqllibname = "Microsoft.Data.SqlClient.SNI.dll"
+if is_win:
+    libname = "ArrowSqlBulkCopyNet.dll"
+    sqllibname = "Microsoft.Data.SqlClient.SNI.dll"
+else:
+    libname = "ArrowSqlBulkCopyNet.so"
+    sqllibname = None
 func_name = "write"
 error_size = 1000
 
 # Check for required dlls
-if not os.path.exists(os.path.join(libpath, sqllibname)):
-    raise RuntimeError(f"Missing {sqllibname} in {libpath}")
-sqllib = windll.LoadLibrary(os.path.join(libpath, sqllibname))
+if is_win:
+    if not os.path.exists(os.path.join(libpath, sqllibname)):
+        raise RuntimeError(f"Missing {sqllibname} in {libpath}")
+    sqllib = ctypes.windll.LoadLibrary(os.path.join(libpath, sqllibname))
 
-lib = windll.LoadLibrary(os.path.join(libpath, libname))
+if is_win:
+    lib = ctypes.windll.LoadLibrary(os.path.join(libpath, libname))
+else:
+    lib = ctypes.cdll.LoadLibrary(os.path.join(libpath, libname))
 if not hasattr(lib, func_name):
     raise RuntimeError(f"Missing {func_name} in {libname}")
 
