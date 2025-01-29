@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os.instance }}
     timeout-minutes: 15
     permissions:
-      id-token: write    
+      id-token: write
       contents: read
 
     strategy:
@@ -24,26 +24,16 @@ jobs:
             platform: x64
             instance: ubuntu-22.04
 
-          - category: macos
-            platform: x64
-            instance: macos-13
-
-        python: ["3.12"]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - name: Set Environment on macOS
-        uses: maxim-lobanov/setup-xamarin@v1
-        if: ${{ matrix.os.category == 'macos' }}
-        with:
-          mono-version: latest
-
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
 
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v2
@@ -62,4 +52,3 @@ jobs:
       - name: Publish package distributions to PyPI
         run: |
           uv publish
-
