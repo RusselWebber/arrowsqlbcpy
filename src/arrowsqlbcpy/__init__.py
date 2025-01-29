@@ -22,8 +22,10 @@ if not hasattr(lib, func_name):
 func_handle = getattr(lib, func_name)
 func_handle.argtypes = [c_char_p, c_int, c_char_p, c_char_p, c_int, c_wchar_p, c_int]
 
+
 class PyArrowSqlBulkCopyException(Exception):
     pass
+
 
 def bulkcopy_from_pandas(
     df: pd.DataFrame,
@@ -31,7 +33,7 @@ def bulkcopy_from_pandas(
     tablename: str,
     max_chunksize: int = None,
     timeout: int = 0,
-)->None:
+) -> None:
     ctypes_connection_string = c_char_p(connection_string.encode())
     ctypes_tablename = c_char_p(tablename.encode())
     ctypes_exception = create_unicode_buffer(init=" " * error_size, size=error_size)
@@ -46,7 +48,7 @@ def bulkcopy_from_pandas(
 
         buf = sink.getvalue().to_pybytes()
 
-        # Call the dll function that will 
+        # Call the dll function that will
         # write the df to SQL Server using SqlBulkCopy
         res = func_handle(
             buf,

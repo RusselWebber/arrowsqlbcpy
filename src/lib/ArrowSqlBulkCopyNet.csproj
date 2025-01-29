@@ -10,6 +10,12 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='release'">
+		<DebugSymbols>False</DebugSymbols>
+		<DebugType>None</DebugType>
+	</PropertyGroup>
+
+
 	<ItemGroup>
 		<PackageReference Include="Apache.Arrow" Version="18.1.0">
 			<IncludeAssets></IncludeAssets>

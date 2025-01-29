@@ -7,7 +7,7 @@ keywords = ["bcp", "sql", "pandas"]
 authors = [
     { name = "Russel Webber", email = "24542073+RusselWebber@users.noreply.github.com" }
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = [
     "pandas>=2.2.3",
     "pyarrow>=19.0.0",
@@ -28,7 +28,15 @@ license-files = []
 [tool.setuptools.dynamic.version]
 file = "version.txt"
 
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--import-mode=importlib",
+]
+
 [dependency-groups]
 dev = [
+    "pytest>=8.3.4",
+    "ruff>=0.9.3",
     "wheel>=0.45.1",
 ]

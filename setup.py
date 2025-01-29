@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Haevily based on the pythonnet project's setup.py that does the same for dotnet builds
+# Heavily based on the pythonnet project's setup.py that does the same for dotnet builds
 
 import distutils
 import sys
@@ -53,7 +53,7 @@ class publish_dotnet(Command):
         build = self.distribution.get_command_obj("build")
         build.ensure_finalized()
         if self.inplace:
-            self.build_lib = "."
+            self.build_lib = "./src"
         else:
             self.build_lib = build.build_lib
 
@@ -135,14 +135,10 @@ cmdclass = {
 
 # Determine host architecture and thus .Net runtime to target
 def runtime():
-    is_32bit = sys.maxsize == 2**31-1
     is_win = platform.system() == "Windows"
     is_mac = platform.system() == "Darwin"
     if is_win:
-        if is_32bit:
-            return "win-x86"
-        else:
-            return "win-x64"
+        return "win-x64"
     elif is_mac:
         return "osx-x64"
     else:
