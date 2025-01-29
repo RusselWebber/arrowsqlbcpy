@@ -34,15 +34,14 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python }}
-          architecture: ${{ matrix.os.platform }}
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        
+      - name: Set up Python
+        run: uv python install
+     
       - name: Sync
         run: |
           uv sync --all-extras --dev
