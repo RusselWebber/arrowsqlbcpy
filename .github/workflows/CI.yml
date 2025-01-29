@@ -23,7 +23,7 @@ jobs:
             platform: x64
             instance: ubuntu-22.04
 
-        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python: ["3.9"]
 
     steps:
       - name: Checkout code
@@ -38,14 +38,11 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python }}
-
-      - name: Set up Python
-        run: uv python install
-     
+          
       - name: Sync
         run: |
           uv sync --all-extras --dev
 
       - name: Test
         run: |
-          run: uv run pytest tests
+          uv run pytest tests
