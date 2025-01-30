@@ -2,6 +2,9 @@ name: Wheels
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
 jobs:
   build-test:
@@ -68,3 +71,9 @@ jobs:
       - name: Publish package distributions to PyPI
         run: |
           uv publish
+
+      # Create release
+      - uses: ncipollo/release-action@v1
+        with:
+          makeLatest: true
+          allowUpdates: true
