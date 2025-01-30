@@ -22,15 +22,16 @@ jobs:
           - category: ubuntu
             platform: x64
             instance: ubuntu-latest
+
           - category: macos
             platform: x64
             instance: macos-latest
 
         exclude:
-          - os.instance: macos-latest
+          - os.category: macos
             python: 3.9
 
-          - os.instance: macos-latest
+          - os.category: macos
             python: 3.10
 
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
