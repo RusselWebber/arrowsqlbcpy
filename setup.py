@@ -144,7 +144,7 @@ def runtime():
         else:
             return "win-x64"
     elif is_mac:
-        return "osx-x64"
+        return "osx-arm64"
     else:
         return "linux-x64"
 
