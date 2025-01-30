@@ -6,14 +6,19 @@ import ctypes
 from ctypes import c_int, c_wchar_p, create_unicode_buffer, c_char_p
 
 is_win = platform.system() == "Windows"
+is_mac = platform.system() == "Darwin"
 
 libpath = os.path.join(os.path.dirname(__file__), "lib")
 if is_win:
     libname = "ArrowSqlBulkCopyNet.dll"
     sqllibname = "Microsoft.Data.SqlClient.SNI.dll"
+elif is_mac:
+    libname = "ArrowSqlBulkCopyNet.dylib"
+    sqllibname = None    
 else:
     libname = "ArrowSqlBulkCopyNet.so"
     sqllibname = None
+    
 func_name = "write"
 error_size = 1000
 
