@@ -28,14 +28,14 @@ jobs:
             platform: x64
             instance: macos-latest
 
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
         exclude:
           - os: { category: macos, platform: x64 }
             python: ["3.9"]
 
           - os: { category: macos, platform: x64 }
             python: ["3.10"]
-
-        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - name: Set Environment on macOS
