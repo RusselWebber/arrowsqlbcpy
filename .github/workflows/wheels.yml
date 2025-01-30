@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       id-token: write
-      contents: read
+      contents: write
 
     strategy:
       fail-fast: false
