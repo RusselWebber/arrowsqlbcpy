@@ -73,17 +73,17 @@ bcpandas_to_sql_1000000 = partial(bcpandas_to_sql, 1_000_000)
 __benchmarks__ = [
     (default_to_sql_1000, fast_executemany__to_sql_1000, "1e3 rows - fast_executemany=True"),
     (default_to_sql_1000, bcpandas_to_sql_1000, "1e3 rows - bcpandas"),
-    (default_to_sql_1000, arrow_to_sql_1000, "1e3 rows - pyArrow SQLBulkCopy"),
+    (default_to_sql_1000, arrow_to_sql_1000, "1e3 rows - arrowsqlbcp"),
     (default_to_sql_10000, fast_executemany__to_sql_10000, "1e4 rows - fast_executemany=True"),
     (default_to_sql_10000, bcpandas_to_sql_10000, "1e4 rows - bcpandas"),
-    (default_to_sql_10000, arrow_to_sql_10000, "1e4 rows - pyArrow SQLBulkCopy"),        
+    (default_to_sql_10000, arrow_to_sql_10000, "1e4 rows - arrowsqlbcp"),        
     (default_to_sql_100000, fast_executemany__to_sql_100000, "1e5 rows - fast_executemany=True"),
     (default_to_sql_100000, bcpandas_to_sql_100000, "1e5 rows - bcpandas"),
-    (default_to_sql_100000, arrow_to_sql_100000, "1e5 rows - pyArrow SQLBulkCopy"),    
+    (default_to_sql_100000, arrow_to_sql_100000, "1e5 rows - arrowsqlbcp"),    
     (default_to_sql_1000000, fast_executemany__to_sql_1000000, "1e6 rows - fast_executemany=True"),
     (default_to_sql_1000000, bcpandas_to_sql_1000000, "1e6 rows - bcpandas"),
-    (default_to_sql_1000000, arrow_to_sql_1000000, "1e6 rows - pyArrow SQLBulkCopy"),        
+    (default_to_sql_1000000, arrow_to_sql_1000000, "1e6 rows - arrowsqlbcp"),        
     (default_to_sql, fast_executemany__to_sql, "3e6 rows - fast_executemany=True"),
     (default_to_sql, bcpandas_to_sql, "3e6 rows - bcpandas"),
-    (default_to_sql, arrow_to_sql, "3e6 rows - pyArrow SQLBulkCopy")            
+    (default_to_sql, arrow_to_sql, "3e6 rows - arrowsqlbcp")            
 ]
