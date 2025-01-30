@@ -29,11 +29,11 @@ jobs:
             instance: macos-latest
 
         exclude:
-          - os.category: macos
-            python: 3.9
+          - os: { category: macos, platform: x86 }
+            python: ["3.9"]
 
-          - os.category: macos
-            python: 3.10
+          - os: { category: macos, platform: x86 }
+            python: ["3.10"]
 
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
