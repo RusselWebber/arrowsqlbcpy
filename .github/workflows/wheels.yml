@@ -24,9 +24,19 @@ jobs:
             platform: x64
             instance: ubuntu-22.04
 
+          - category: macos
+            platform: x64
+            instance: macos-13
+
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
+      - name: Set Environment on macOS
+        uses: maxim-lobanov/setup-xamarin@v1
+        if: ${{ matrix.os.category == 'macos' }}
+        with:
+          mono-version: latest
+
       - name: Checkout code
         uses: actions/checkout@v2
 

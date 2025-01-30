@@ -135,9 +135,16 @@ cmdclass = {
 
 # Determine host architecture and thus .Net runtime to target
 def runtime():
+    is_32bit = sys.maxsize == 2**31-1
     is_win = platform.system() == "Windows"
+    is_mac = platform.system() == "Darwin"
     if is_win:
-        return "win-x64"
+        if is_32bit:
+            return "win-x86"
+        else:
+            return "win-x64"
+    elif is_mac:
+        return "osx-x64"
     else:
         return "linux-x64"
 
