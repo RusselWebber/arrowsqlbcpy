@@ -79,9 +79,23 @@ The benchmarks then show the time taken to load using various alternative strate
 
 The richbench tables show the min, max and mean time in seconds for the baseline in the left three columns; then the min, max, mean time in seconds for the alternative strategy.
 
+For example this row:
+
+| Benchmark                        | Min | Max | Mean | Min (+)  | Max (+)  | Mean (+) |
+| -------------------------------- | --- | --- | ---- | -------- | -------- | -------- |
+| 1e3 rows - fast_executemany=True | 1.0 | 1.0 | 1.0  | 0.5 (2x) | 0.5 (2x) | 0.5 (2x) |
+
+should be interpreted as: the strategy of setting fast_executemany=True resulted in a 2x speedup over the baseline when loading 1000 rows, so fast_executemany=True reduced the average time in seconds to load 1000 rows from 1.0 to 0.5, a 2x speedup.
+
 ### Windows 11 (local db)
 
+tbc
+
 ### Ubuntu (WSL2) (local db)
+
+tbc
+
+Benchmarks for the typical case of a remote DB still need to be added.
 
 ## Limitations
 
