@@ -31,8 +31,11 @@ jobs:
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
         exclude:
-          - os: { category: macos, platform: x64 }
-            python: ["3.9", "3.10"]
+          - os: { category: macos }
+            python: "3.9"
+
+          - os: { category: macos }
+            python: "3.10"
 
     steps:
       - name: Set Environment on macOS

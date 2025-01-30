@@ -33,6 +33,9 @@ jobs:
           - os: { category: macos }
             python: "3.9"
 
+          - os: { category: macos }
+            python: "3.10"
+
     steps:
       - name: Set Environment on macOS
         uses: maxim-lobanov/setup-xamarin@v1
