@@ -14,11 +14,11 @@ if is_win:
     sqllibname = "Microsoft.Data.SqlClient.SNI.dll"
 elif is_mac:
     libname = "ArrowSqlBulkCopyNet.dylib"
-    sqllibname = None    
+    sqllibname = None
 else:
     libname = "ArrowSqlBulkCopyNet.so"
     sqllibname = None
-    
+
 func_name = "write"
 error_size = 1000
 

@@ -1,7 +1,7 @@
 [project]
 name = "arrowsqlbcpy"
 license = {text = "MIT"}
-description = "Fast bcp from pandas to SQL Server using .Net SqlBulkCopy"
+description = "A tiny library that uses .Net SqlBulkCopy to enable fast data loading to Microsoft SQL Server. Apache Arrow is used to serialise data between Python and the native DLL. .Net Native Library AOT compilation is used to generate the native DLL."
 readme = "README.md"
 keywords = ["bcp", "sql", "pandas"]
 authors = [
@@ -13,6 +13,22 @@ dependencies = [
     "pyarrow>=19.0.0",
 ]
 dynamic = ["version"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: C#",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Database",
+  "Topic :: Database :: Database Engines/Servers"
+]
+
+[project.urls]
+Repository = "https://github.com/RusselWebber/arrowsqlbcpy.git"
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]
@@ -33,9 +49,11 @@ addopts = [
 
 [dependency-groups]
 dev = [
+    "bcpandas>=2.6.5",
     "pymssql>=2.3.2",
     "pyodbc>=5.2.0",
     "pytest>=8.3.4",
+    "richbench>=1.0.3",
     "ruff>=0.9.3",
     "sqlalchemy>=2.0.37",
     "wheel>=0.45.1",
