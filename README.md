@@ -6,6 +6,8 @@ A tiny library that uses .Net SqlBulkCopy to enable fast data loading to Microso
 
 This library is _much_ faster than any other Python solution, including bcpandas, pyodbc and pymssql. See the benchmark results below.
 
+![Performance plot](performance.png)
+
 ## Installation
 
 Binary wheels are available from PyPi and can be installed using your preferred package manager:
@@ -15,27 +17,6 @@ Binary wheels are available from PyPi and can be installed using your preferred 
 or
 
 > uv add arrowsqlbcpy
-
-## Requirements
-
-Wheels are available for the latest versions of Windows 64 bit, MacOS ARM 64bit and Ubuntu 64 bit.
-
-Wheels are available for Python 3.9-3.13.
-
-### Linux support
-
-The Ubuntu wheels _may_ work on other Linux distros. Building C# native libaries and then packaging appropriately for multiple Linux distros is not straightforward. The simplest solution for most Linux distros is to simply pull the source from Github and build locally. These are the high-level steps:
-
-1. Install .net
-   https://learn.microsoft.com/en-us/dotnet/core/install/linux
-2. Clone the source
-   > git clone https://github.com/RusselWebber/arrowsqlbcpy
-3. Install uv
-   https://docs.astral.sh/uv/getting-started/installation/
-4. Build the wheel locally
-   > uv build --wheel
-5. Install the wheel
-   > pip install dist/wheel_file.whl
 
 ## Usage
 
@@ -58,6 +39,27 @@ bulkcopy_from_pandas(df, cn, tablename)
 ```
 
 When testing it can be useful to have pandas create the table for you, see [tests/test_load.py](https://github.com/RusselWebber/arrowsqlbcpy/blob/main/tests/test_load.py) for an example.
+
+## Requirements
+
+Wheels are available for the latest versions of Windows 64 bit, MacOS ARM 64bit and Ubuntu 64 bit.
+
+Wheels are available for Python 3.9-3.13.
+
+### Linux support
+
+The Ubuntu wheels _may_ work on other Linux distros. Building C# native libaries and then packaging appropriately for multiple Linux distros is not straightforward. The simplest solution for most Linux distros is to simply pull the source from Github and build locally. These are the high-level steps:
+
+1. Install .net
+   https://learn.microsoft.com/en-us/dotnet/core/install/linux
+2. Clone the source
+   > git clone https://github.com/RusselWebber/arrowsqlbcpy
+3. Install uv
+   https://docs.astral.sh/uv/getting-started/installation/
+4. Build the wheel locally
+   > uv build --wheel
+5. Install the wheel
+   > pip install dist/wheel_file.whl
 
 ## Benchmarks
 
@@ -91,23 +93,12 @@ should be interpreted as: the strategy of setting fast_executemany=True resulted
 
 **Summary results**
 
-| Label                 | # rows    | Avg Speedup | Avg Time (s) |
-| --------------------- | --------- | ----------- | ------------ |
-| **arrowsqlbcpy**      | 1 000     | **-1.9x**   | 0.106        |
-| **arrowsqlbcpy**      | 10 000    | **4.9x**    | 0.101        |
-| **arrowsqlbcpy**      | 100 000   | **4.9x**    | 0.933        |
-| **arrowsqlbcpy**      | 1 000 000 | **5.3x**    | 8.864        |
-| **arrowsqlbcpy**      | 3 000 000 | **7.6x**    | 26.048       |
-| bcpandas              | 1 000     | -3.6x       | 0.156        |
-| bcpandas              | 10 000    | 1.5x        | 0.336        |
-| bcpandas              | 100 000   | 1.8x        | 2.567        |
-| bcpandas              | 1 000 000 | 1.9x        | 24.627       |
-| bcpandas              | 3 000 000 | 2.7x        | 72.353       |
-| fast_executemany=True | 1 000     | 2.4x        | 0.035        |
-| fast_executemany=True | 10 000    | 2.3x        | 0.235        |
-| fast_executemany=True | 100 000   | 2.3x        | 2.246        |
-| fast_executemany=True | 1 000 000 | 2.1x        | 22.044       |
-| fast_executemany=True | 3 000 000 | 3.0x        | 65.344       |
+|                       | 1000             | 10000            | 10000            | 1000000          | 3000000           |
+| --------------------- | ---------------- | ---------------- | ---------------- | ---------------- | ----------------- |
+| df.to_sql()           | 0.055            | 0.495            | 4.601            | 46.648           | 198.57            |
+| arrowsqlbcpy          | 0.106 (-1.9x)    | **0.101 (4.9x)** | **0.933 (4.9x)** | **8.864 (5.3x)** | **26.048 (7.6x)** |
+| bcpandas              | 0.156 (-3.0x)    | 0.336 (1.5x)     | 2.567 (1.8x)     | 24.627 (1.9x)    | 72.353 (2.7x)     |
+| fast_executemany=True | **0.035 (2.4x)** | 0.235 (2.3x)     | 2.246 (2.3x)     | 22.044 (2.1x)    | 65.344 (3.0x)     |
 
 **Detailed richbench results**
 
@@ -133,23 +124,12 @@ should be interpreted as: the strategy of setting fast_executemany=True resulted
 
 **Summary results**
 
-| Label                 | # rows    | Avg Speedup | Avg Time (s) |
-| --------------------- | --------- | ----------- | ------------ |
-| **arrowsqlbcpy**      | 1 000     | **-2.2x**   | 0.154        |
-| **arrowsqlbcpy**      | 10 000    | **4.2x**    | 0.120        |
-| **arrowsqlbcpy**      | 100 000   | **4.7x**    | 1.070        |
-| **arrowsqlbcpy**      | 1 000 000 | **4.7x**    | 10.572       |
-| **arrowsqlbcpy**      | 3 000 000 | **6.8x**    | 30.673       |
-| bcpandas              | 1 000     | -2.4x       | 0.158        |
-| bcpandas              | 10 000    | 1.2x        | 0.438        |
-| bcpandas              | 100 000   | 1.5x        | 3.383        |
-| bcpandas              | 1 000 000 | 1.5x        | 32.774       |
-| bcpandas              | 3 000 000 | 2.2x        | 95.200       |
-| fast_executemany=True | 1 000     | 1.6x        | 0.059        |
-| fast_executemany=True | 10 000    | 1.7x        | 0.323        |
-| fast_executemany=True | 100 000   | 1.6x        | 3.039        |
-| fast_executemany=True | 1 000 000 | 1.7x        | 29.810       |
-| fast_executemany=True | 3 000 000 | 2.4x        | 87.419       |
+|                       | 1000             | 10000            | 10000            | 1000000           | 3000000           |
+| --------------------- | ---------------- | ---------------- | ---------------- | ----------------- | ----------------- |
+| df.to_sql()           | 0.070            | 0.506            | 5.074            | 50.089            | 208.811           |
+| arrowsqlbcpy          | 0.154 (-2.2x)    | **0.120 (4.2x)** | **1.070 (4.7x)** | **10.572 (4.7x)** | **30.673 (6.8x)** |
+| bcpandas              | 0.158 (-2.4x)    | 0.438 (1.2x)     | 3.383 (1.5x)     | 32.774 (1.5x)     | 95.200 (2.2x)     |
+| fast_executemany=True | **0.059 (1.6x)** | 0.323 (1.7x)     | 3.039 (1.6x)     | 29.810 (1.7x)     | 87.419 (2.4x)     |
 
 **Detailed richbench results**
 
