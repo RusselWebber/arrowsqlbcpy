@@ -7,7 +7,7 @@ from functools import partial
 
 cn = r"Server=PC\SQLEXPRESS;Database=test;Trusted_Connection=True;Encrypt=false;"
 tablename = "test"
-max_chunksize = None
+max_chunksize = 10_000
 df = pd.read_parquet(r"C:\Users\russe\Downloads\yellow_tripdata_2024-01.parquet")
 
 connection_url = URL.create(
@@ -38,20 +38,20 @@ def fast_executemany__to_sql(nrows=None):
     with fast_executemany_engine.begin() as conn:
         conn.execute(text(f"TRUNCATE TABLE {tablename}"))    
     local_df = df.iloc[:nrows] if nrows else df
-    with engine.begin() as conn:
+    with fast_executemany_engine.begin() as conn:
         local_df.to_sql(name=tablename, con=conn, index=False, chunksize=max_chunksize, if_exists="append")
 
 def arrow_to_sql(nrows=None):
     with engine.begin() as conn:
         conn.execute(text(f"TRUNCATE TABLE {tablename}"))    
     local_df = df.iloc[:nrows] if nrows else df
-    bulkcopy_from_pandas(local_df, cn, tablename)
+    bulkcopy_from_pandas(local_df, cn, tablename, max_chunksize=max_chunksize)
 
 def bcpandas_to_sql(nrows=None):
     with engine.begin() as conn:
         conn.execute(text(f"TRUNCATE TABLE {tablename}"))    
     local_df = df.iloc[:nrows] if nrows else df
-    to_sql(local_df, tablename, creds, index=False, if_exists="append")
+    to_sql(local_df, tablename, creds, index=False, if_exists="append", batch_size=min(max_chunksize, local_df.shape[0]))
 
 default_to_sql_1000 = partial(default_to_sql, 1_000)
 fast_executemany__to_sql_1000 = partial(fast_executemany__to_sql, 1_000)
