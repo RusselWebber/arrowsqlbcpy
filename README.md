@@ -1,4 +1,4 @@
-![GitHub Latest Tag](https://badgen.net/github/tag/RusselWebber/arrowsqlbcpy) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/RusselWebber/arrowsqlbcpy/ci.yml) ![PyPI Python Versions](https://img.shields.io/pypi/pyversions/arrowsqlbcpy)
+![GitHub Latest Tag](https://badgen.net/github/tag/RusselWebber/arrowsqlbcpy) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/RusselWebber/arrowsqlbcpy/CI.yml) ![PyPI Python Versions](https://img.shields.io/pypi/pyversions/arrowsqlbcpy)
 
 # arrowsqlbcpy
 
