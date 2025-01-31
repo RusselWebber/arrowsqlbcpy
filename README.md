@@ -6,7 +6,7 @@ A tiny library that uses .Net SqlBulkCopy to enable fast data loading to Microso
 
 This library is _much_ faster than any other Python solution, including bcpandas, pyodbc and pymssql. See the benchmark results below.
 
-![Performance plot](performance.png)
+![Performance plot](https://github.com/RusselWebber/arrowsqlbcpy/raw/main/performance.png)
 
 ## Installation
 
